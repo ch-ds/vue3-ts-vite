@@ -16,11 +16,11 @@
         :model="loginFormModal"
         :rules="loginFormRules"
       >
-        <el-form-item label="账号" prop="username">
-          <el-input v-model="loginFormModal.username" />
+        <el-form-item label="账号" prop="userName">
+          <el-input v-model="loginFormModal.userName" />
         </el-form-item>
         <el-form-item label="密码" prop="password">
-          <el-input v-model="loginFormModal.password" />
+          <el-input v-model="loginFormModal.passwordMd5" />
         </el-form-item>
         <el-form-item>
           <div>登录表示您已同意<a>《服务条款》</a></div>
@@ -39,27 +39,29 @@
 </template>
 
 <script setup lang="ts">
+import { loginApi } from "@/api/login";
 import { ref, reactive } from "vue";
 import { LoginForm } from "@/types";
 import type { FormInstance, FormRules } from "element-plus";
 const loginFormModal = reactive<LoginForm>({
-  username: "",
-  password: "",
+  userName: "",
+  passwordMd5: "",
 });
 const loginFormRules = reactive<FormRules>({
-  username: [{ required: true, message: "账户不能为空", trigger: "blur" }],
-  password: [{ required: true, message: "密码不能为空", trigger: "blur" }],
+  userName: [{ required: true, message: "账户不能为空", trigger: "blur" }],
+  passwordMd5: [{ required: true, message: "密码不能为空", trigger: "blur" }],
 });
 let checked = ref<boolean>(true);
 const loginFormRef = ref<FormInstance>();
 
-const submitForm = async (formEle: FormInstance | undefined) => {
+const submitForm = (formEle: FormInstance | undefined) => {
   if (!formEle) return;
-  await formEle.validate((valid) => {
+  formEle.validate(async (valid) => {
     if (valid) {
-      console.log("submit");
+      const res = await loginApi(loginFormModal);
+      console.log(res);
     } else {
-      console.log('error submit')
+      console.log("error submit");
     }
   });
 };

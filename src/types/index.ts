@@ -1,4 +1,4 @@
 export type LoginForm = {
-  username: string,
-  password: string,
+  userName: string,
+  passwordMd5: string,
 } 
