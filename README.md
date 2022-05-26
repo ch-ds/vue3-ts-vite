@@ -14,3 +14,9 @@ Since TypeScript cannot handle type information for `.vue` imports, they are shi
 2. Reload the VS Code window by running `Developer: Reload Window` from the command palette.
 
 You can learn more about Take Over mode [here](https://github.com/johnsoncodehk/volar/discussions/471).
+
+
+
+
+## 声明：
+该项目是仿照 [here](https://github.com/buqiyuan/vue3-antd-admin) 这个项目改的，接口等都是使用该项目的.
